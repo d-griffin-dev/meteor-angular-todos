@@ -9,7 +9,15 @@ if (Meteor.isClient) {
     .controller('TodosListCtrl', ['$scope', '$meteor',
       function ($scope, $meteor) {
 
-        $scope.tasks = $meteor.collection(Tasks);
+        $scope.tasks = $meteor.collection(function(){
+          return Tasks.find({}, {sort: {createdAt: -1}});
+        });
 
+        $scope.addTask = function(newTask){
+          $scope.tasks.push({
+            text: newTask,
+            createdAt: new Date()
+          });
+        };
   }]);
 }
