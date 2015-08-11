@@ -1,17 +1,21 @@
 <div class="container">
   <header>
     <h1>Todo List</h1>
+
+    <form class="new-task"
+          ng-submit="addTask(newTask); newTask='';">
+      <input  type="text"
+              ng-model="newTask"
+              name="text"
+              placeholder="Type to add new tasks." />
+    </form>
   </header>
 
-  <form class="new-task"
-        ng-submit="addTask(newTask); newTask='';">
-    <input  type="text" 
-            ng-model="newTask"
-            name="text"
-            placeholder="Type to add new tasks." />
-  </form>
-
   <ul ng-repeat="task in tasks">
-    <li>{{task.text}}</li>
+    <li ng-class="{'checked': task.checked}">
+      <button class="delete" ng-click="tasks.remove(task)">&times;</button>
+      <input type="checkbox" ng-model="task.checked" class="toggle-checked">
+      <span class="text">{{task.text}}</span>
+    </li>
   </ul>
 </div>
